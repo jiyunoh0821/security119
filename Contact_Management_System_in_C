@@ -1,0 +1,214 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+void add();
+void list();
+void search();
+void edit();
+void deleted();
+char name[10];
+char phone[20];
+char address[20];
+char email[20];
+FILE* data;
+FILE* temp;
+char str[20], del[20]; int n;
+int main() {   
+   A:
+      system("cls");
+      printf("\n\t\t\t**** Welcome to Contact Management System ****\n\n\n");
+      printf("\t\t\t\t\tMAIN MENU\n");
+      printf("\t\t\t\t=====================\n");
+      printf("\t\t\t\t[1] Add a new Contact\n");
+      printf("\t\t\t\t[2] List all Contacts\n");
+      printf("\t\t\t\t[3] Search for Contact\n");
+      printf("\t\t\t\t[4] Edit a Contact\n");
+      printf("\t\t\t\t[5] Delete a Contact\n");
+      printf("\t\t\t\t[0] Exit\n");
+      printf("\t\t\t\t================\n");
+      printf("\t\t\t\tEnter the choice:");
+      int choice;
+      scanf("%d", &choice);
+      switch (choice)
+      {
+      case 1:
+         add();
+         goto A;
+      case 2:
+         list();
+         printf("\n\t\tMenu :1\tExit:0\n\t\tPress : "); 
+         scanf("%d", &n);
+         if (n == 0)
+            break;
+         else goto A;
+      case 3:
+         search();
+         printf("\n\t\tMenu :1\tExit:0\n\t\tPress : "); 
+         scanf("%d", &n);
+         if (n == 0)
+            break;
+         else goto A;
+      case 4:
+         edit();
+         printf("\n\t\tMenu :1\tExit:0\n\t\tPress : "); 
+         scanf("%d", &n);
+         if (n == 0)
+            break;
+         else goto A;
+      case 5:
+         deleted();
+         printf("\n\t\tMenu :1\tExit:0\n\t\tPress : ");
+         scanf("%d", &n);
+         if (n == 0)
+            break;
+         else goto A;
+      case 0:
+         break;
+      }
+      return;
+}
+void add() {
+   system("cls");   
+   data = fopen("data.txt", "a");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\t\t\t\t  ADD CONTACT\n");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\tName\t\tPhone No\t\tAddress\t\tE-mail ad.\n");
+   printf("\t\t==================================================================\n\n\n");
+   printf("\t\tName\t : "); scanf("%s", name);
+   printf("\t\tPhone\t : "); scanf("%s", phone);
+   printf("\t\tAddress\t : "); scanf("%s", address);
+   printf("\t\tEmail\t : "); scanf("%s", email);
+   fputs(name, data); fputs("\n", data);
+   fputs(phone, data); fputs("\n", data);
+   fputs(address, data); fputs("\n", data);
+   fputs(email, data); fputs("\n", data);
+   fclose(data);
+}
+void list()
+{
+   system("cls");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\t\t\t\tLIST OF CONTACT\n");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\tName\t\tPhone No\t\tAddress\t\tE-mail ad.\n");
+   printf("\t\t==================================================================\n\n");
+   data = fopen("data.txt", "r");
+   while (1)
+   {
+      if (fgets(str, 20, data) == NULL)
+         break;
+      printf("\t\tName\t: %s", str); 
+      fgets(str, 20, data); printf("\t\tPhone\t: %s", str);
+      fgets(str, 20, data); printf("\t\tAddress\t: %s", str);
+      fgets(str, 20, data); printf("\t\tEmail\t: %s\n", str);   
+   }
+   printf("\t\t==================================================================\n");
+}
+void search() {
+   system("cls");
+   data = fopen("data.txt", "r");
+   char temp1[20], temp2[20]; int check=0;
+   char str1[20], str2[20]; char n[10] = "\n";
+   printf("\t\t\t\t===============================\n");
+   printf("\t\t\t\t\tSEARCH CONTACT\n");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\tName: "); scanf("%s", temp1);
+   printf("\t\tPhone: "); scanf("%s", temp2);    
+   while (fgets(str1, 20, data)) {
+      fgets(str2, 20, data);
+      if (strncmp(str1, temp1, strlen(str1) - 1) == 0 && strncmp(str2, temp2, strlen(str2) - 1) == 0)
+      {
+         printf("\t\t==================================================================\n\n");
+         printf("\t\tName\t: %s", str1);
+         printf("\t\tPhone\t: %s", str2);
+         fgets(str, 20, data); printf("\t\tAddress\t: %s", str);
+         fgets(str, 20, data); printf("\t\tEmail\t: %s\n", str);
+         check = 1;
+         printf("\t\t==================================================================\n");
+         break;
+      }
+      
+   }
+   if (check == 0)
+      printf("\t\t==================================================================\n\n\t\t\t\t\t  NOT DATA\n");
+   printf("\t\t==================================================================\n");
+}
+void edit() {
+   system("cls");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\t\t\t\tEDIT CONTACT\n");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\tName\t\tPhone No\t\tAddress\t\tE-mail ad.\n");
+   printf("\t\t==================================================================\n\n");
+   printf("\t\tEDIT Name: ");
+   scanf("%s", del);
+   int num;
+   data = fopen("data.txt", "r");
+   temp = fopen("temp.txt", "w");
+   while (1) {
+      if (fgets(str, 20, data) == NULL)
+      {
+         break;
+      }
+      else {
+         if (strncmp(str, del, strlen(str) - 1) != 0)  //못찾을때
+         {
+            fputs(str, temp);
+         }
+         else  //찾을때
+         {
+            printf("\t\tName\t : "); scanf("%s",name); 
+            printf("\t\tPhone\t : "); scanf("%s",phone);
+            printf("\t\tAddress\t : "); scanf("%s",address);
+            printf("\t\tEmail\t : "); scanf("%s", email);
+            fputs(name, temp); fputs("\n", temp);
+            fputs(phone, temp); fputs("\n", temp);
+            fputs(address, temp); fputs("\n", temp);
+            fputs(email, temp); fputs("\n", temp);      
+            fgets(str, 20, data); fgets(str, 20, data); fgets(str, 20, data);
+         }
+      }
+   }fclose(data); fclose(temp);
+   data = fopen("data.txt", "w");
+   temp = fopen("temp.txt", "r");
+   while (fgets(str, 20, temp)) {
+      fputs(str, data);
+   }fclose(data); fclose(temp);
+}
+void deleted() {
+   system("cls");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\t\t\t\tDELETE CONTACT\n");
+   printf("\t\t\t\t===============================\n");
+   printf("\t\tName\t\tPhone No\t\tAddress\t\tE-mail ad.\n");
+   printf("\t\t==================================================================\n\n");
+   printf("\t\tDelete Name: ");
+   scanf("%s", del);
+   int num;
+   data = fopen("data.txt", "r");
+   temp = fopen("temp.txt", "w");
+   while (1) {
+      if (fgets(str, 20, data) == NULL)
+      {
+         break;         
+      }
+      else {
+         if (strncmp(str, del, strlen(str) - 1) != 0)  //못찾을때
+         {
+            fputs(str, temp);
+         }
+         else  //찾을때
+         {
+            fgets(str, 20, data); fgets(str, 20, data); fgets(str, 20, data);
+         }
+      }
+   }fclose(data); fclose(temp);
+   data = fopen("data.txt", "w");
+   temp = fopen("temp.txt", "r");   
+   while (fgets(str, 20, temp)) {
+      fputs(str, data);
+   }fclose(data); fclose(temp);
+}
+   
