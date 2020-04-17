@@ -367,5 +367,5 @@ int mainmenu() {
 		}fseek(stdin, 0, SEEK_END);
 	}
 }
-
-
+#test.txt
+HELLO WORLD
