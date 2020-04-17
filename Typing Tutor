@@ -1,0 +1,371 @@
+#include <stdio.h> // 기본 
+#include <conio.h> // getch 함수 사용 
+#include <windows.h> // goto 함수 
+#include <string.h> // 글자처리 
+#include <process.h> // system("cls") 사용을 위해 
+#include <stdlib.h> // 파일 
+#include <time.h> // 시 간
+#pragma warning(disable:4996)
+FILE* AAA;
+#define UP 72
+#define DOWN 80
+#define ENTER 13
+#define BLUE SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9)
+#define YELLOW SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),14) 
+#define GREEN SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10) 
+#define RED SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),13) 
+#define WHITE SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15) 
+int aa;
+void loadFiles();
+int mainmemu();
+void list();
+
+void Printmiddleline(const char*ap_string, int a_space_count) {
+	printf("\t\t│%-*s│\n", a_space_count, ap_string);
+}
+
+char name[10];
+char lesson[20];
+FILE* data;
+FILE* temp;
+char str[20]; char str1[20];
+FILE* BBB;
+FILE* CCC;
+FILE* test;
+char k[30];
+char tt[30];
+void beginsession_A() {
+	system("cls");
+	AAA = fopen("AAA.txt", "w");
+	double acc; //정확도 
+	double speed; //타자 스피드
+	double time;
+	int count = 0; //오타 갯수 입력 
+	clock_t start, end; //시간 재기위한 변수 선언 
+	
+	test = fopen("test.txt", "r");
+	fgets(k, sizeof(k), test);
+	BLUE; printf("\n\t\t\t TEST:  %s\n\n", k);
+	WHITE;
+	start = clock();	 printf("\n\t\t\tSTART:  "); gets(tt);	end = clock();
+	for (int i = 0; i < strlen(k); i++) {
+		if (k[i] != tt[i])
+			count++;
+	}
+	time = (double)(end - start) / CLOCKS_PER_SEC;
+	YELLOW;
+	printf("\n\t\t\t==============================\n");
+	printf("\n\t\t\t입력시간은 총 %.2f초입니다.\n", time);
+	printf("\t\t\t오타 갯수는 %d입니다.\n", count);
+	acc = (1 - count / (double)strlen(k)) * 100;
+	printf("\t\t\t정확도는 %.2f%%입니다.\n", acc);
+	speed = (double)strlen(k) * 60 / time;
+	printf("\t\t\t타자속도 : %.2f\n\n", speed);
+	printf("\t\t\tMENU [1] EXIT[0]  :");
+	fputs("AAA\n", AAA);
+	fprintf(AAA, "%.2lf", time); fputs("\n", AAA);
+	fprintf(AAA, "%d", count); fputs("\n", AAA);
+	fprintf(AAA, "%.2lf", acc); fputs("\n", AAA);
+	fprintf(AAA, "%.2lf", speed); fputs("\n", AAA);
+	fseek(stdin, 0, SEEK_END); fclose(AAA); fclose(test);
+}
+void beginsession_B() {
+	system("cls");
+	BBB = fopen("BBB.txt", "w");
+	double acc; //정확도 
+	double speed; //타자 스피드
+	double time;
+	int count = 0; //오타 갯수 입력 
+	clock_t start, end; //시간 재기위한 변수 선언 
+	
+	test = fopen("test.txt", "r");
+	fgets(k, sizeof(k), test);
+	BLUE; printf("\n\t\t\t TEST:  %s\n\n", k);
+	WHITE;
+	start = clock();	 printf("\n\t\t\tSTART:  "); gets(tt);	end = clock();
+	for (int i = 0; i < strlen(k); i++) {
+		if (k[i] != tt[i])
+			count++;
+	}
+	time = (double)(end - start) / CLOCKS_PER_SEC;
+	YELLOW;
+	printf("\n\t\t\t==============================\n");
+	printf("\n\t\t\t입력시간은 총 %.2f초입니다.\n", time);
+	printf("\t\t\t오타 갯수는 %d입니다.\n", count);
+	acc = (1 - count / (double)strlen(k)) * 100;
+	printf("\t\t\t정확도는 %.2f%%입니다.\n", acc);
+	speed = (double)strlen(k) * 60 / time;
+	printf("\t\t\t타자속도 : %.2f\n\n", speed);
+	printf("\t\t\tMENU [1] EXIT[0]  :");
+	fputs("BBB\n", BBB);
+	fprintf(BBB, "%.2lf", time); fputs("\n", BBB);
+	fprintf(BBB, "%d", count); fputs("\n", BBB);
+	fprintf(BBB, "%.2lf", acc); fputs("\n", BBB);
+	fprintf(BBB, "%.2lf", speed); fputs("\n", BBB);
+	fseek(stdin, 0, SEEK_END); fclose(BBB); fclose(test);
+}
+void beginsession_C() {
+	system("cls");
+	CCC = fopen("CCC.txt", "w");
+	double acc; //정확도 
+	double speed; //타자 스피드
+	double time;
+	int count = 0; //오타 갯수 입력 
+	clock_t start, end; //시간 재기위한 변수 선언 
+	
+	test = fopen("test.txt", "r");
+	fgets(k, sizeof(k), test);
+	BLUE; printf("\n\t\t\t TEST:  %s\n\n", k);
+	WHITE;
+	start = clock();	 printf("\n\t\t\tSTART:  "); gets(tt);	end = clock();
+	for (int i = 0; i < strlen(k); i++) {
+		if (k[i] != tt[i])
+			count++;
+	}
+	time = (double)(end - start) / CLOCKS_PER_SEC;
+	YELLOW;
+	printf("\n\t\t\t==============================\n");
+	printf("\n\t\t\t입력시간은 총 %.2f초입니다.\n", time);
+	printf("\t\t\t오타 갯수는 %d입니다.\n", count);
+	acc = (1 - count / (double)strlen(k)) * 100;
+	printf("\t\t\t정확도는 %.2f%%입니다.\n", acc);
+	speed = (double)strlen(k) * 60 / time;
+	printf("\t\t\t타자속도 : %.2f\n\n", speed);
+	printf("\t\t\tMENU [1] EXIT[0]  :");
+	fputs("CCC\n", CCC);
+	fprintf(CCC, "%.2lf", time); fputs("\n", CCC);
+	fprintf(CCC, "%d", count); fputs("\n", CCC);
+	fprintf(CCC, "%.2lf", acc); fputs("\n", CCC);
+	fprintf(CCC, "%.2lf", speed); fputs("\n", CCC);
+	fseek(stdin, 0, SEEK_END); fclose(CCC); fclose(test);
+
+}
+void userselectmenu() {
+	system("cls");
+	char temp1[20] = { 0 };
+	int check = 0;
+	printf("\t\t\t\t===============================\n");
+	printf("\t\t\t\t\tSELECT PLAYER\n");
+	printf("\t\t\t\t===============================\n\n");
+	printf("\t\t\t\t  [1]AAA   [2]BBB   [3]CCC\n");
+	printf("\t\t\t\t===============================\n");
+	printf("\t\t\t\tName: "); gets(temp1);
+	if (strcmp(temp1, "AAA") == 0)
+	{
+		beginsession_A();
+	}
+	if (strcmp(temp1, "BBB") == 0)
+	{
+		beginsession_B();
+	}
+	if (strcmp(temp1, "CCC") == 0)
+	{
+		beginsession_C();
+	}fseek(stdin, 0, SEEK_END);
+}
+void list()
+{
+	system("cls"); 
+	YELLOW;
+	
+	printf("\n\t\t\t\t <O V E R A L L   S T A T I S T I C S>\n");
+	printf("\t\t=======================================================================\n");
+	printf("\t\tName\t\tTime\t\tCount\t\tAcc\t\tSpeed\n");
+	printf("\t\t=======================================================================\n\n");
+	AAA = fopen("AAA.txt", "r"); BBB = fopen("BBB.txt", "r"); CCC = fopen("CCC.txt", "r");
+	while (1)
+	{
+		if (fgets(str, 20, AAA) == NULL)
+			break;
+		for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0';
+		printf("\t\t%s", str);
+		fgets(str, 20, AAA); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%ss", str);
+		fgets(str, 20, AAA); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%s", str);
+		fgets(str, 20, AAA); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t %s", str);
+		fgets(str, 20, AAA); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%s\n", str); fclose(AAA);
+	}
+	while (1)
+	{
+		if (fgets(str, 20, BBB) == NULL)
+			break;
+		for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0';
+		printf("\t\t%s", str);
+		fgets(str, 20, BBB); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%ss", str);
+		fgets(str, 20, BBB); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%s", str);
+		fgets(str, 20, BBB); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t %s", str);
+		fgets(str, 20, BBB); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%s\n", str); fclose(BBB);
+	}
+	while (1)
+	{
+		if (fgets(str, 20, CCC) == NULL)
+			break;
+		for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0';
+		printf("\t\t%s", str);
+		fgets(str, 20, CCC); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%ss", str);
+		fgets(str, 20, CCC); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%s", str);
+		fgets(str, 20, CCC); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t %s", str);
+		fgets(str, 20, CCC); for (int i = 0; i < 20; i++)if (str[i] == '\n')str[i] = '\0'; printf("\t\t%s\n", str); fclose(CCC);
+	}
+	
+}
+void statics() {
+	system("cls");
+	
+	int check = 0;
+	printf("\t\t\t\t===============================\n");
+	printf("\t\t\t\t\tSELECT PLAYER\n");
+	printf("\t\t\t\t===============================\n\n");
+	printf("\t\t\t\t  [1]AAA   [2]BBB   [3]CCC\n");
+	printf("\t\t\t\t===============================\n");
+	printf("\t\t\t\tName: "); gets(str1);
+	system("cls");
+	BLUE; printf("\t\t[R E S U L T]\n"); YELLOW;
+	if (strcmp(str1, "AAA") == 0)
+	{
+		AAA = fopen("AAA.txt", "r");
+		while (1)
+		{
+			if (fgets(str, 20, AAA) == NULL)
+				break;
+			printf("\t\tName:\t%s", str);
+			fgets(str, 20, AAA); ; printf("\t\tTime:\t%s", str);
+			fgets(str, 20, AAA); ; printf("\t\tCount:\t%s", str);
+			fgets(str, 20, AAA); ; printf("\t\tAcc:\t%s", str);
+			fgets(str, 20, AAA); ; printf("\t\tSpeed:\t%s", str);
+		} fclose(AAA); fseek(stdin, 0, SEEK_END);
+	}
+	if (strcmp(str1, "BBB") == 0)
+	{
+		BBB = fopen("BBB.txt", "r"); 
+		while (1)
+		{
+			if (fgets(str, 20, BBB) == NULL)
+				break;
+			printf("\t\tName:\t%s", str);
+			fgets(str, 20, BBB); ; printf("\t\tTime:\t%s", str);
+			fgets(str, 20, BBB); ; printf("\t\tCount:\t%s", str);
+			fgets(str, 20, BBB); ; printf("\t\tAcc:\t%s", str);
+			fgets(str, 20, BBB); ; printf("\t\tSpeed:\t%s", str);
+		} fclose(BBB); fseek(stdin, 0, SEEK_END);
+	}
+	if (strcmp(str1, "CCC") == 0)
+	{
+		while (1)
+		{
+			if (fgets(str, 20, CCC) == NULL)
+				break;
+			printf("\t\tName:\t%s", str);
+			fgets(str, 20, CCC); ; printf("\t\tTime:\t%s", str);
+			fgets(str, 20, CCC); ; printf("\t\tCount:\t%s", str);
+			fgets(str, 20, CCC); ; printf("\t\tAcc:\t%s", str);
+			fgets(str, 20, CCC); ; printf("\t\tSpeed:\t%s", str);
+		} fclose(CCC); fseek(stdin, 0, SEEK_END);
+	}
+}
+int main(void) {
+A:
+	switch (mainmenu())
+	{
+	case 1:
+		userselectmenu();
+		scanf("%d", &aa);
+		if (aa == 0)
+			break;
+		else goto A;
+	case 2:
+		statics();
+		printf("\n\t\tMenu :1\tExit:0\n\t\tPress : ");
+		scanf("%d", &aa);
+		if (aa == 0)
+			break;
+		else goto A;
+	case 3:
+		list();
+		printf("\n\t\tMenu :1\tExit:0\n\t\tPress : ");
+		scanf("%d", &aa);
+		if (aa == 0)
+			break;
+		else goto A;
+	case 4:
+		system("cls");
+		printf("\n\t\t\t119\n");
+		printf("\t\t이름 : 오지윤, 이승준\n");
+		printf("\n\t\tMenu :1\tExit:0\n\t\tPress : ");
+		scanf("%d", &aa);
+		if (aa == 0)
+			break;
+		else goto A;
+	case 5:
+		return;
+		
+	}
+}
+int mainmenu() {
+	system("cls");
+	GREEN; printf("\t\t ▶  T Y P I N G  T E S T E R  ◀\n\n");
+	RED; printf(">> Press the arrow keys : ↑ or ↓ to navigate the options.\n>> Press <ENTER> key to accept an option.\n>> [OR] Press the number keys to select your choice\n\n");
+	YELLOW; printf("\t\t┌");
+	for (int i = 0; i < 30; i++)printf("─");
+	printf("┐\n");
+	Printmiddleline("       ***MAIN MENU***", 30);
+	Printmiddleline("", 30); Printmiddleline(" (1) Select User", 30);
+	Printmiddleline("", 30); Printmiddleline(" (2) Statistics", 30);
+	Printmiddleline("", 30); Printmiddleline(" (3) View User Records", 30);
+	Printmiddleline("", 30); Printmiddleline(" (4) About", 30);
+	Printmiddleline("", 30); Printmiddleline(" (5) Quit", 30);
+	Printmiddleline("", 30); printf("\t\t└");
+	for (int i = 0; i < 30; i++)printf("─");
+	printf("┘\n\n"); printf("\t\tSELECT :");
+	int num = 0;
+	while (1) {
+		int select = getch();
+		if (select == UP || select == DOWN || select == ENTER)
+		{
+			switch (select)
+			{
+			case UP:
+			{
+				num++;
+				if (num > 5)
+				{
+					num = 1;
+				}
+				printf(" %d?", num);
+				break;
+			}
+			case DOWN:
+			{
+				num--;
+				if (num < 1)
+					num = 5;
+				printf(" %d?", num);
+				break;
+			}
+			case ENTER:
+				return num;
+			}
+		}
+		else {
+			switch (select - 48) {
+			case 1:
+				select = 1; printf(" %d", select);
+				return select;
+			case 2:
+				select = 2; printf(" %d", select);
+				return select;
+			case 3:
+				select = 3; printf(" %d", select);
+				return select;
+			case 4:
+				select = 4; printf(" %d", select);
+				return select;
+			case 5:printf("5\n");
+				return 5;
+
+			}
+
+		}fseek(stdin, 0, SEEK_END);
+	}
+}
+
+
